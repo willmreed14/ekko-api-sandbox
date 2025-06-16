@@ -10,3 +10,22 @@ interface RequestFormData {
   headers: { key: string; value: string }[];
   body: string;
 }
+
+// Create the form component
+const RequestForm: FC = () => {
+  // Create the form itself
+  const { control, register, handleSubmit } = useForm<RequestFormData>({
+    defaultValues: {
+      url: '',
+      method: 'GET',
+      headers: [{ key: '', value: '' }],
+      body: '',
+    },
+  });
+
+  // Handle form submission
+  const onSubmit = (data: RequestFormData) => {
+    console.log('Form submitted with data:', data);
+    // TODO: wire this up to actually make the API call
+  };
+};
