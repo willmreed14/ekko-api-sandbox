@@ -28,4 +28,36 @@ const RequestForm: FC = () => {
     console.log('Form submitted with data:', data);
     // TODO: wire this up to actually make the API call
   };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      {/* URL and Method */}
+      <div className="flex gap-2">
+        <select {...register('method')} className="bg-slate-700 text-white rounded px-3 py-2">
+          <option value="GET">GET</option>
+          <option value="POST">POST</option>
+          <option value="PUT">PUT</option>
+          <option value="DELETE">DELETE</option>
+          <option value="PATCH">PATCH</option>
+        </select>
+
+        <input
+          {...register('url')}
+          placeholder="Enter API URL"
+          className="flex-1 bg-slate-700 text-white rounded px-3 py-2"
+        ></input>
+
+        <button
+          type="submit"
+          className="bg-blue-600 hover:bg-blue-700 text-white rounded px-4 py-2"
+        >
+          Send
+        </button>
+      </div>
+
+      {/* Add more fields later */}
+    </form>
+  );
 };
+
+export default RequestForm;
