@@ -75,6 +75,36 @@ const ResponseViewer: FC<ResponseViewerProps> = ({ response, error, isLoading })
           </span>
           <span className="text-white font-medium">{response.statusText}</span>
         </div>
+        {response.time && <span className="text-slate-400 text-xs">{response.time} ms</span>}
+      </div>
+      {/* Headers */}
+      <div>
+        <h3 className="text-sm font-medium text-white mb-2">Headers</h3>
+        <div className="bg-slate-700 rounded p-2 max-h-40 overflow-y-auto">
+          {/* If headers, dynamically populate table */}
+          {Object.entries(response.headers).length > 0 ? (
+            <table className="w-full text-sm">
+              <tbody>
+                {Object.entries(response.headers).map(([key, value]) => (
+                  <tr key={key} className="border-b border-slate-600 last:border-0">
+                    <td className="py-1 pr-4 text-slate-400 align-top">{key}</td>
+                    <td className="py-1 text-white break-all">{value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p className="text-slate-400 text-xs">No headers</p>
+          )}
+        </div>
+      </div>
+
+      {/* Response Body */}
+      <div>
+        <h3 className="text-sm font-medium text-white mb-2">Response</h3>
+        <pre className="bg-slate-700 rounded p-3 overflow-x-auto text-sm text-white font-mono whitespace-pre-wrap max-h-96">
+          {formatJson(response.data)}
+        </pre>
       </div>
     </div>
   );
