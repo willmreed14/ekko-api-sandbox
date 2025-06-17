@@ -19,6 +19,41 @@ interface ResponseViewerProps {
 }
 
 const ResponseViewer: FC<ResponseViewerProps> = ({ response, error, isLoading }) => {
+  // Helper to format JSON
+  const formatJson = (data: any): string => {
+    try {
+      return JSON.stringify(data, null, 2);
+    } catch (error) {
+      return 'Error formatting JSON data';
+    }
+  };
+
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-full">
+        <div className="animate-pulse text-blue-500">Loading response...</div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="bg-red-900/20 border border-red-700 rounded-lg p-4 text-red-500">
+        <h3 className="font-medium mb-2">Error</h3>
+        <p className="font-mono text-sm">{error.message}</p>
+      </div>
+    );
+  }
+
+  // No response yet
+  if (!response) {
+    return (
+      <div className="text-slate-400 text-center py-8">Send a request to see the response here</div>
+    );
+  }
+
   return (
     <div className="space-y-4">
       <div className="text-white">Response Viewer (to be implemented)</div>
