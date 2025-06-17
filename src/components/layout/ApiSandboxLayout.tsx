@@ -5,6 +5,7 @@ Right Side: Response Panel
 */
 
 import { type FC } from 'react';
+import RequestForm from '../api/RequestForm';
 
 const ApiSandboxLayout: FC = () => {
   return (
@@ -13,7 +14,8 @@ const ApiSandboxLayout: FC = () => {
       <div className="w-full md:w-1/2 p-4 border-r border-slate-700 overflow-y-auto">
         <h2 className="text-lg font-medium text-white mb-4">Request</h2>
         <div className="bg-slate-800 rounded-lg p-4 shadow-md">
-          {/* Request form will go here */}
+          {/* RequestForm */}
+          <RequestForm />
           <p className="text-slate-300">Request form will be added here</p>
         </div>
       </div>
