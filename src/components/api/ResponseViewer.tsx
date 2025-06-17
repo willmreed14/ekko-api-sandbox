@@ -54,9 +54,28 @@ const ResponseViewer: FC<ResponseViewerProps> = ({ response, error, isLoading })
     );
   }
 
+  // Response State
   return (
     <div className="space-y-4">
-      <div className="text-white">Response Viewer (to be implemented)</div>
+      {/* Status and Timing Info */}
+      <div className="flex items-center justify-between">
+        <div className="flex gap-2 items-center">
+          {/* Dynamic status code styling */}
+          <span
+            className={`inline-block px-2 py-1 rounded text-xs font-medium
+              ${
+                response.status >= 200 && response.status < 300
+                  ? 'bg-green-900/30 text-green-500'
+                  : response.status >= 400
+                    ? 'bg-red-900/30 text-red-500'
+                    : 'bg-yellow-900/30 text-yellow-500'
+              }`}
+          >
+            {response.status}
+          </span>
+          <span className="text-white font-medium">{response.statusText}</span>
+        </div>
+      </div>
     </div>
   );
 };
