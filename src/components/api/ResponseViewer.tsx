@@ -7,7 +7,7 @@ interface ResponseData {
   status: number;
   statusText: string;
   headers: Record<string, string>;
-  data: any;
+  data: unknown;
   time?: number; // Response time in ms
 }
 
@@ -20,7 +20,7 @@ interface ResponseViewerProps {
 
 const ResponseViewer: FC<ResponseViewerProps> = ({ response, error, isLoading }) => {
   // Helper to format JSON
-  const formatJson = (data: any): string => {
+  const formatJson = (data: unknown): string => {
     try {
       return JSON.stringify(data, null, 2);
     } catch (error) {
