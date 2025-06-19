@@ -23,7 +23,7 @@ export interface ApiResponse<T = unknown> {
  * @returns Promise with the API response
  */
 export async function makeRequest<T = unknown>(config: ApiRequestConfig): Promise<ApiResponse<T>> {
-  const startTime = performance.now(); 
+  const startTime = performance.now();
 
   try {
     // Convert ApiRequestConfig to AxiosRequestConfig
