@@ -63,87 +63,111 @@ const RequestForm: FC<RequestFormProps> = ({ onSubmit, isLoading }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      {/* URL and Method */}
-      <div className="flex gap-2">
-        <select {...register('method')} className="bg-slate-700 text-white rounded px-3 py-2">
+    <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
+      {/* URL Input */}
+      <div>
+        <label htmlFor="url" className="block text-sm font-medium text-white mb-1">
+          URL
+        </label>
+        <input
+          type="text"
+          id="url"
+          {...register('url', { required: true })}
+          className="w-full bg-slate-700 border border-slate-600 rounded p-2 text-white text-sm"
+          placeholder="https://api.example.com/endpoint"
+          disabled={isLoading}
+        ></input>
+      </div>
+
+      {/* Method Select */}
+      <div>
+        <label htmlFor="method" className="block text-sm font-medium text-white mb-1">
+          Method
+        </label>
+        <select
+          id="method"
+          {...register('method')}
+          className="w-full bg-slate-700 border border-slate-600 rounded p-2 text-white text-sm"
+          disabled={isLoading}
+        >
           <option value="GET">GET</option>
           <option value="POST">POST</option>
           <option value="PUT">PUT</option>
           <option value="DELETE">DELETE</option>
           <option value="PATCH">PATCH</option>
         </select>
-
-        <input
-          {...register('url')}
-          placeholder="Enter API URL"
-          className="flex-1 bg-slate-700 text-white rounded px-3 py-2"
-        ></input>
-
-        <button
-          type="submit"
-          className="bg-blue-600 hover:bg-blue-700 text-white rounded px-4 py-2"
-        >
-          Send
-        </button>
       </div>
 
-      {/* Headers Section */}
-      <div className="bg-slate-800 rounded-lg p-4">
-        <div className="flex items-center justify-between mb-2">
-          <h3 className="text-white font-medium">Headers</h3>
-
-          {/* Add Header Button - Appends a new empty header row */}
+      {/* Headers */}
+      <div>
+        <div className="flex justify-between items-center mb-1">
+          <label className="block text-sm font-medium text-white">Headers</label>
           <button
             type="button"
             onClick={() => append({ key: '', value: '' })}
-            className="text-sm bg-slate-700 hover:bg-slate-600 text-white rounded px-2 py-1"
+            className="text-xs bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded"
+            disabled={isLoading}
           >
             Add Header
           </button>
         </div>
 
-        {/* Accept inputs for new header row */}
-        {fields.map((field, index) => (
-          <div key={field.id} className="flex gap-2 mb-2">
-            {/* Input for header key */}
-            <input
-              {...register(`headers.${index}.key`)}
-              placeholder="Header name"
-              className="flex-1 bg-slate-700 text-white rounded px-3 py-2"
-            ></input>
-
-            {/* Input for header value */}
-            <input
-              {...register(`headers.${index}.value`)}
-              placeholder="Value"
-              className="flex-1 bg-slate-700 text-white rounded px-3 py-2"
-            ></input>
-
-            {/* Remove header row */}
-            <button
-              type="button"
-              onClick={() => remove(index)}
-              className="bg-red-700 hover:bg-red-600 text-white rounded px-3 py-2"
-            >
-              &times;
-            </button>
-          </div>
-        ))}
+        <div className="space-y-2">
+          {fields.map((field, index) => (
+            <div key={field.id} className="flex gap-2 items-center">
+              <input
+                {...register(`headers.${index}.key`)}
+                placeholder="Content-Type"
+                className="flex-1 bg-slate-700 border border-slate-600 rounded p-1.5 text-white text-sm"
+                disabled={isLoading}
+              ></input>
+              <input
+                {...register(`headers.${index}.value`)}
+                placeholder="application/json"
+                className="flex-1 bg-slate-700 border border-slate-600 rounded p-1.5 text-white text-sm"
+                disabled={isLoading}
+              ></input>
+              {fields.length > 1 && (
+                <button
+                  type="button"
+                  onClick={() => remove(index)}
+                  className="text-red-400 hover:text-red-300 p-1"
+                  disabled={isLoading}
+                >
+                  &times;
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* Request Body - Only show for POST, PUT, PATCH */}
+      {/* Request Body (Conditional) */}
       {showBody && (
-        <div className="bg-slate-800 rounded-lg p-4">
-          <h3 className="text-white font-medium mb-2">Request Body</h3>
+        <div>
+          <label htmlFor="body" className="block text-sm font-medium text-white mb-1">
+            Request Body (JSON)
+          </label>
           <textarea
+            id="body"
             {...register('body')}
-            rows={8}
-            placeholder="Enter request body (JSON)"
-            className="w-full bg-slate-700 text-white font-mono rounded px-3 py-2 resize-none"
+            className="w-full bg-slate-700 border border-slate-600 rounded p-2 text-white text-sm font-mono h-32"
+            placeholder='{\n "key": "value"\n}'
+            disabled={isLoading}
           ></textarea>
         </div>
       )}
+
+      {/* Submit Button */}
+      <div>
+        <button
+          type="submit"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded disabled:bg-slate-600 disabled: cursor-not-allowed"
+          disabled={isLoading}
+        >
+          {isLoading ? 'Sending...' : 'Send Request'}
+        </button>
+      </div>
     </form>
   );
 };
