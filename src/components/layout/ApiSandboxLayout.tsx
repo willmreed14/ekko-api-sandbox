@@ -40,7 +40,7 @@ const ApiSandboxLayout: FC = () => {
         <h2 className="text-lg font-medium text-white mb-4">Response</h2>
         <div className="bg-slate-800 rounded-lg p-4 shadow-md">
           {/* Response Viewer */}
-          <ResponseViewer response={response} error={error} isLoading={isLoading} />
+          <ResponseViewer response={response ?? null} error={error} isLoading={isLoading} />
         </div>
       </div>
     </div>
