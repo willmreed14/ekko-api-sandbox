@@ -1,10 +1,17 @@
 /* Request Form Component */
 
 import { type FC } from 'react';
-import { useForm, Controller, useFieldArray } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
+import { type ApiRequestConfig } from '../../services/apiService';
+
+// Define the form props
+interface RequestFormProps {
+  onSubmit: (config: ApiRequestConfig) => Promise<void>;
+  isLoading: boolean;
+}
 
 // Define the form data structure
-interface RequestFormData {
+interface FormData {
   url: string;
   method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
   headers: { key: string; value: string }[];
@@ -12,9 +19,9 @@ interface RequestFormData {
 }
 
 // Create the form component
-const RequestForm: FC = () => {
+const RequestForm: FC<RequestFormProps> = ({ onSubmit, isLoading }) => {
   // Create the form itself
-  const { control, register, handleSubmit, watch } = useForm<RequestFormData>({
+  const { control, register, handleSubmit, watch } = useForm<FormData>({
     defaultValues: {
       url: '',
       method: 'GET',
@@ -30,17 +37,29 @@ const RequestForm: FC = () => {
   });
 
   // Watch the current method to conditionally show the body
-  const currentMethod = watch('method');
-  const showBody = ['POST', 'PUT', 'PATCH'].includes(currentMethod); // Only show the body for POST, PUT, PATCH methods.
+  const method = watch('method');
+  const showBody = method === 'POST' || method === 'PUT' || method === 'PATCH'; // Only show the body for POST, PUT, PATCH methods.
 
   // Handle form submission
-  const onSubmit = (data: RequestFormData) => {
+  const handleFormSubmit = (data: FormData) => {
     // Filter out empty headers
-    const filteredHeaders = data.headers.filter((h) => h.key.trim() != '' && h.value.trim() !== '');
-    const cleanData = { ...data, headers: filteredHeaders };
+    const headers: Record<string, string> = {};
+    data.headers.forEach(({ key, value }) => {
+      if (key && value) {
+        headers[key] = value;
+      }
+    });
 
-    console.log('Form submitted with data:', cleanData);
-    // TODO: wire this up to actually make the API call
+    // Create the API request config
+    const requestConfig: ApiRequestConfig = {
+      url: data.url,
+      method: data.method,
+      headers,
+      body: showBody && data.body ? JSON.parse(data.body) : undefined,
+    };
+
+    // Call the onSubmit handler
+    onSubmit(requestConfig);
   };
 
   return (
