@@ -4,16 +4,25 @@ Left Side: Request Panel
 Right Side: Response Panel
 */
 
-import { type FC, useState } from 'react';
+import { type FC } from 'react';
 import RequestForm from '../api/RequestForm';
 import ResponseViewer from '../api/ResponseViewer';
+import { useApiRequest } from '../../hooks/useApiRequest';
+import { type ApiRequestConfig } from '../../services/apiService';
 
 const ApiSandboxLayout: FC = () => {
-  // For now, create mock states for the ResponseViewer
-  // Later, connect this to teh actual API responses.
-  const [isLoading, setIsLoading] = useState(false);
-  const [response, setResponse] = useState(null);
-  const [error, setError] = useState(null);
+  // Use the custom hook for API requests
+  const { makeApiRequest, data: response, error, isLoading } = useApiRequest();
+
+  // Handle form submission
+  const handleRequest = async (requestConfig: ApiRequestConfig) => {
+    try {
+      await makeApiRequest(requestConfig);
+    } catch (err) {
+      // Error is already handled by the hook
+      console.error('Request failed', err);
+    }
+  };
 
   return (
     <div className="flex flex-col md:flex-row h-[calc(100vh-64px)] bg-slate-900">
@@ -22,7 +31,7 @@ const ApiSandboxLayout: FC = () => {
         <h2 className="text-lg font-medium text-white mb-4">Request</h2>
         <div className="bg-slate-800 rounded-lg p-4 shadow-md">
           {/* Request Form */}
-          <RequestForm />
+          <RequestForm onSubmit={handleRequest} isLoading={isLoading} />
         </div>
       </div>
 
