@@ -102,7 +102,7 @@ const ResponseViewer: FC<ResponseViewerProps> = ({ response, error, isLoading })
       {/* Response Body */}
       <div>
         <h3 className="text-sm font-medium text-white mb-2">Response</h3>
-        <pre className="bg-slate-700 rounded p-3 overflow-x-auto text-sm text-white font-mono whitespace-pre-wrap max-h-96">
+        <pre className="bg-slate-700 rounded p-3 overflow-x-auto text-sm text-white font-mono whitespace-pre-wrap max-h-96 text-left">
           {formatJson(response.data)}
         </pre>
       </div>
