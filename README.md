@@ -121,3 +121,28 @@ ekko-api-sandbox/
 - `npm run lint` - Run ESLint to check code quality
 - `npm run preview` - Preview the production build locally
 
+### Task List
+
+- [x] Define tech stack
+  - [x] Choose a lightweight tech stack (React + TypeScript + Axios)
+- [ ] App Structure
+  - [ ] Create the folder structure for
+    - [ ] Individual API endpoints (Identity proofing, digital signature, etc.)
+    - [x] Shared layout / components
+    - [ ] Config (.env) file to point to environment base URLs
+- [ ] Setup Routing + Layout
+  - [ ] Simple routing or tabbed UI for switching between API test views
+    - [ ] Left nav or tab bar for different APIs
+    - [x] Main panel for each API's request/response playground
+    - Note: reference Stripe API docs
+- [x] Build Generic API Tester Component
+  - Will be reused for each API type
+  - [x] Input fields
+  - [x] Call button
+  - [x] Logs request & response
+- [ ] Add mock API modes
+  - For initial testing
+  - Use mock data or endpoints
+  - Simulate responses for ID.me, signature, etc.
+
+
