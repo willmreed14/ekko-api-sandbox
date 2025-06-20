@@ -25,7 +25,7 @@ const ApiSandboxLayout: FC = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row h-[calc(100vh-64px)] bg-slate-900">
+    <div className="min-w-[1024px] max-w-7xl mx-auto px-4 flex flex-col md:flex-row h-[calc(100vh-64px)] bg-slate-900">
       {/* Request Panel (Left Side) */}
       <div className="w-full md:w-1/2 p-4 border-r border-slate-700 overflow-y-auto">
         <h2 className="text-lg font-medium text-white mb-4">Request</h2>
