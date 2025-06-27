@@ -21,7 +21,7 @@ interface FormData {
 // Create the form component
 const RequestForm: FC<RequestFormProps> = ({ onSubmit, isLoading }) => {
   // Create the form itself
-  const { control, register, handleSubmit, watch } = useForm<FormData>({
+  const { control, register, handleSubmit, watch, setValue } = useForm<FormData>({
     defaultValues: {
       url: '',
       method: 'GET',
@@ -63,7 +63,14 @@ const RequestForm: FC<RequestFormProps> = ({ onSubmit, isLoading }) => {
       try {
         // Try to parse the JSON
         const parsedBody = JSON.parse(data.body);
-        // Format it and set the body
+
+        // Format the JSON with proper indentation
+        const formattedJson = JSON.stringify(parsedBody, null, 2);
+
+        // Update the form field with formatted JSON
+        setValue('body', formattedJson);
+
+        // Set the body in the request config
         requestConfig.body = parsedBody;
       } catch (error) {
         // Show error is JSON is invalid (alert for now)
