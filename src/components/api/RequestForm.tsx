@@ -55,8 +55,23 @@ const RequestForm: FC<RequestFormProps> = ({ onSubmit, isLoading }) => {
       url: data.url,
       method: data.method,
       headers,
-      body: showBody && data.body ? JSON.parse(data.body) : undefined,
+      body: undefined, // default to undefined
     };
+
+    // Handle JSON body for methods that support it
+    if (showBody && data.body) {
+      try {
+        // Try to parse the JSON
+        const parsedBody = JSON.parse(data.body);
+        // Format it and set the body
+        requestConfig.body = parsedBody;
+      } catch (error) {
+        // Show error is JSON is invalid (alert for now)
+        alert('Invalid JSON in request body. Please check your syntax.');
+        console.error('JSON parse error:', error);
+        return;
+      }
+    }
 
     // Call the onSubmit handler
     onSubmit(requestConfig);
