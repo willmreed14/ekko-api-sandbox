@@ -1,6 +1,6 @@
 /* Request Form Component */
 
-import { type FC } from 'react';
+import { type FC, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { type ApiRequestConfig } from '../../services/apiService';
 
@@ -20,6 +20,9 @@ interface FormData {
 
 // Create the form component
 const RequestForm: FC<RequestFormProps> = ({ onSubmit, isLoading }) => {
+  // State for JSON validation error
+  const [jsonError, setJsonError] = useState<string | null>(null);
+
   // Create the form itself
   const { control, register, handleSubmit, watch, setValue } = useForm<FormData>({
     defaultValues: {
@@ -50,6 +53,9 @@ const RequestForm: FC<RequestFormProps> = ({ onSubmit, isLoading }) => {
       }
     });
 
+    // Clear any previous errors
+    setJsonError(null);
+
     // Create the API request config
     const requestConfig: ApiRequestConfig = {
       url: data.url,
@@ -73,8 +79,8 @@ const RequestForm: FC<RequestFormProps> = ({ onSubmit, isLoading }) => {
         // Set the body in the request config
         requestConfig.body = parsedBody;
       } catch (error) {
-        // Show error is JSON is invalid (alert for now)
-        alert('Invalid JSON in request body. Please check your syntax.');
+        // Show error inline
+        setJsonError('Invalid JSON in request body. Please check your syntax.');
         console.error('JSON parse error:', error);
         return;
       }
@@ -177,6 +183,8 @@ const RequestForm: FC<RequestFormProps> = ({ onSubmit, isLoading }) => {
             placeholder='{\n "key": "value"\n}'
             disabled={isLoading}
           ></textarea>
+          {/* Display error w/ body syntax */}
+          {jsonError && <p className="text-red-400 text-sm mt-1">{jsonError}</p>}
         </div>
       )}
 
