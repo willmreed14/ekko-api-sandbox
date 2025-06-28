@@ -1,11 +1,16 @@
 /* Main Entry Point */
 
+// Imports
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import App from './App.tsx';
+
+// Import page componenets
+import SandboxPage from './pages/SandboxPage.tsx';
+import IdentityProofingPage from './pages/IdentityProofingPage.tsx';
 
 // Create a QueryClient instance
 const queryClient = new QueryClient();
@@ -23,6 +28,16 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    children: [
+      {
+        index: true,
+        element: <SandboxPage />,
+      },
+      {
+        path: 'identity-proofing',
+        element: <IdentityProofingPage />,
+      },
+    ],
   },
 ]);
 
