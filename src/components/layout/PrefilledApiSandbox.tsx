@@ -44,7 +44,14 @@ const PrefilledApiSandbox: FC<PrefilledApiSandboxProps> = ({
           <h2 className="text-lg font-medium text-white mb-4">Request</h2>
           <div className="bg-slate-800 rounded-lg p-4 shadow-md">
             {/* Request Form with pre-filled values */}
-            <RequestForm onSubmit={handleRequest} isLoading={isLoading} />
+            <RequestForm
+              onSubmit={handleRequest}
+              isLoading={isLoading}
+              defaultUrl={defaultUrl}
+              defaultMethod={defaultMethod}
+              defaultHeaders={defaultHeaders}
+              defaultBody={defaultBody}
+            />
           </div>
         </div>
 
