@@ -1,16 +1,14 @@
 /* Identity Proofing API section */
 
 import PrefilledApiSandbox from '../components/layout/PrefilledApiSandbox';
+import { API_BASE_URL } from '../config/env';
 
 const IdentityProofingPage = () => {
   // Define pre-filled values for ID verification API
   const verificationExample = {
-    url: 'https://baseurl.com/identity/start',
+    url: `${API_BASE_URL}/identity/start`,
     method: 'POST' as const,
-    headers: [
-      { key: 'Content-Type', value: 'application/json' },
-      { key: 'Authorization', value: 'Bearer YOUR_API_KEY' },
-    ],
+    headers: [{ key: 'Content-Type', value: 'application/json' }],
     body: JSON.stringify({
       user_id: 'user_1234',
       provider: 'idme',
