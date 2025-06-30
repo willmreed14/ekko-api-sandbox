@@ -37,10 +37,10 @@ const RequestForm: FC<RequestFormProps> = ({
   // Create the form itself
   const { control, register, handleSubmit, watch, setValue } = useForm<FormData>({
     defaultValues: {
-      url: '',
-      method: 'GET',
-      headers: [{ key: '', value: '' }],
-      body: '',
+      url: defaultUrl,
+      method: defaultMethod,
+      headers: defaultHeaders,
+      body: defaultBody,
     },
   });
 
