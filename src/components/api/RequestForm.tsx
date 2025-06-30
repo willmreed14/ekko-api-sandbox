@@ -8,6 +8,10 @@ import { type ApiRequestConfig } from '../../services/apiService';
 interface RequestFormProps {
   onSubmit: (config: ApiRequestConfig) => Promise<void>;
   isLoading: boolean;
+  defaultUrl?: string;
+  defaultMethod?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+  defaultHeaders?: { key: string; value: string }[];
+  defaultBody?: string;
 }
 
 // Define the form data structure
