@@ -23,7 +23,14 @@ interface FormData {
 }
 
 // Create the form component
-const RequestForm: FC<RequestFormProps> = ({ onSubmit, isLoading }) => {
+const RequestForm: FC<RequestFormProps> = ({
+  onSubmit,
+  isLoading,
+  defaultUrl = '',
+  defaultMethod = 'GET',
+  defaultHeaders = [{ key: '', value: '' }],
+  defaultBody = '',
+}) => {
   // State for JSON validation error
   const [jsonError, setJsonError] = useState<string | null>(null);
 
