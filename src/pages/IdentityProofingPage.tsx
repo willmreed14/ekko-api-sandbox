@@ -1,6 +1,6 @@
 /* Identity Proofing API section */
 
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 
 const IdentityProofingPage = () => {
   return (
@@ -30,6 +30,11 @@ const IdentityProofingPage = () => {
           </li>
           {/* Add more endpoint links here */}
         </ul>
+      </div>
+
+      {/* Child routes will be rendered here */}
+      <div className="mt-10">
+        <Outlet />
       </div>
     </div>
   );

@@ -23,11 +23,6 @@ const StartVerificationPage = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Identity Proofing API</h1>
-      <p className="mb-8">
-        The Identity Proofing API allows you to verify user identities through various methods.
-      </p>
-
       {/* Example endpoints section */}
       <div className="space-y-12">
         {/* POST Endpoint Example */}
