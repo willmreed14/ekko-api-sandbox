@@ -24,7 +24,7 @@ const Navigation = () => {
     {
       id: 'sandbox',
       name: 'API Sandbox',
-      path: '/'
+      path: '/',
     },
     {
       id: 'identity-proofing',
@@ -34,7 +34,7 @@ const Navigation = () => {
         {
           id: 'start-verification',
           name: 'Start ID Verification',
-          path: '/identity-proofing/start-verification'
+          path: '/identity-proofing/start-verification',
         },
         // Note: Add more endpoints as needed
       ],
@@ -47,19 +47,73 @@ const Navigation = () => {
       <div className="text-sm font-medium text-gray-500 py-2">API SECTIONS</div>
       <ul className="space-y-1 py-2">
         {sections.map((section) => (
-          <li key={section.id}>
-            <NavLink
-              to={section.path}
-              className={({ isActive }) =>
-                `block px-3 py-2 rounded-md text-sm ${
-                  isActive
-                    ? 'bg-gray-100 text-gray-900 font-medoum'
-                    : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
-                }`
-              }
-            >
-              {section.name}
-            </NavLink>
+          <li key={section.id} className="mb-2">
+            <div className="flex flex-col">
+              {/* Section header with expandable arrow */}
+              <div className="flex items-center">
+                {section.endpoints && section.endpoints.length > 0 ? (
+                  <button
+                    onClick={() => toggleSection(section.id)}
+                    className="w-5 h-5 mr-1 flex items-center justify-center"
+                  >
+                    <svg
+                      className={`w-3 h-3 transition-transform ${
+                        expandedSections[section.id] ? 'transform rotate-90' : ''
+                      }`}
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </button>
+                ) : (
+                  <div className="w-5 h-5 mr-1"></div>
+                )}
+
+                {/* Section link */}
+                <NavLink
+                  to={section.path}
+                  end={section.endpoints && section.endpoints.length > 0}
+                  className={({ isActive }) =>
+                    `flex-grow px-3 py-2 rounded-md text-sm ${
+                      isActive
+                        ? 'bg-gray-100 text-gray-900 font-medium'
+                        : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                    }`
+                  }
+                >
+                  {section.name}
+                </NavLink>
+              </div>
+
+              {/* Endpoints submenu */}
+              {section.endpoints &&
+                section.endpoints.length > 0 &&
+                expandedSections[section.id] && (
+                  <ul className="pl-6 mt-1 space-y-1">
+                    {section.endpoints.map((endpoint) => (
+                      <li key={endpoint.id}>
+                        <NavLink
+                          to={endpoint.path}
+                          className={({ isActive }) =>
+                            `block px-3 py-2 rounded-md text-xs ${
+                              isActive
+                                ? 'bg-gray-100 text-gray-900 font-medium'
+                                : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                            }`
+                          }
+                        >
+                          {endpoint.name}
+                        </NavLink>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+            </div>
           </li>
         ))}
       </ul>
