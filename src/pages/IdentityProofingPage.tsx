@@ -1,25 +1,8 @@
 /* Identity Proofing API section */
 
-import PrefilledApiSandbox from '../components/layout/PrefilledApiSandbox';
-import { API_BASE_URL } from '../config/env';
+import { Link } from 'react-router-dom';
 
 const IdentityProofingPage = () => {
-  // Define pre-filled values for ID verification API
-  const verificationExample = {
-    url: `${API_BASE_URL}/identity/start`,
-    method: 'POST' as const,
-    headers: [{ key: 'Content-Type', value: 'application/json' }],
-    body: JSON.stringify(
-      {
-        user_id: 'user_1234',
-        provider: 'idme',
-        callbackUrl: 'https://your-app.com/verify/callback',
-        channel: 'web', // optional: helps track mobile vs web flow
-      },
-      null,
-      2
-    ),
-  };
   return (
     <div>
       <h1 className="text-2xl font-bold mb-4">Identity Proofing API</h1>
@@ -27,23 +10,26 @@ const IdentityProofingPage = () => {
         The Identity Proofing API allows you to verify user identities through various methods.
       </p>
 
-      {/* Example endpoints section */}
-      <div className="space-y-12">
-        {/* POST Endpoint Example */}
-        <section id="create-verification" className="border-b border-gray-200 pb-8">
-          <h2 className="text-xl font-semibold mb-4">Start ID Verification</h2>
-          <p className="mb-6">
-            Initiates identity verification session via ID.me and returns a redirect URL
-          </p>
-
-          {/* Use PrefilledApiSandbox with example values */}
-          <PrefilledApiSandbox
-            defaultUrl={verificationExample.url}
-            defaultMethod={verificationExample.method}
-            defaultHeaders={verificationExample.headers}
-            defaultBody={verificationExample.body}
-          />
-        </section>
+      {/* List of endpoints in this section */}
+      <div className="spce-y-6">
+        <h2 className="text-lg font-semibold">Available Endpoints</h2>
+        <ul className="space-y-4">
+          <li>
+            <Link
+              to="/identity-proofing/start-verification"
+              className="block p-4 border border-gray-200 rounded-md hover:bg-gray-50"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-md font-medium">Start ID Verification</span>
+                <span className="text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded">POST</span>
+              </div>
+              <p className="mt-2 text-sm">
+                Initiates identity verification session via ID.me and returns a redirect URL
+              </p>
+            </Link>
+          </li>
+          {/* Add more endpoint links here */}
+        </ul>
       </div>
     </div>
   );
