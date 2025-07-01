@@ -60,7 +60,7 @@ const Navigation = () => {
                       className={`w-3 h-3 transition-transform ${
                         expandedSections[section.id] ? 'transform rotate-90' : ''
                       }`}
-                      fill="currentColor"
+                      fill="gray-600"
                       viewBox="0 0 20 20"
                     >
                       <path
