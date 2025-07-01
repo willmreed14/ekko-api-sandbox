@@ -1,13 +1,45 @@
 /* Navigation Component */
 
-import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 
 const Navigation = () => {
-  // Define API sections for navigation
+  const location = useLocation();
+
+  // Track which sections are expanded
+  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
+    'identity-proofing': true, // Default expanded (for now)
+  });
+
+  // Toggle section expansion
+  const toggleSection = (sectionId: string) => {
+    setExpandedSections((prev) => ({
+      ...prev,
+      [sectionId]: !prev[sectionId],
+    }));
+  };
+
+  // Define API sections with nested endpoints
   const sections = [
-    { id: 'sandbox', name: 'API Sandbox', path: '/' },
-    { id: 'identity-proofing', name: 'Identity Proofing', path: '/identity-proofing' },
-    // Add more sections as needed later
+    {
+      id: 'sandbox',
+      name: 'API Sandbox',
+      path: '/'
+    },
+    {
+      id: 'identity-proofing',
+      name: 'Identity Proofing',
+      path: '/identity-proofing',
+      endpoints: [
+        {
+          id: 'start-verification',
+          name: 'Start ID Verification',
+          path: '/identity-proofing/start-verification'
+        },
+        // Note: Add more endpoints as needed
+      ],
+    },
+    // Note: Add more sections as needed
   ];
 
   return (
