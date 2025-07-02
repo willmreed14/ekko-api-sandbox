@@ -4,32 +4,36 @@ import { Link, Outlet } from 'react-router-dom';
 
 const IdentityProofingPage = () => {
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-4">Identity Proofing API</h1>
-      <p className="mb-8">
-        The Identity Proofing API allows you to verify user identities through various methods.
-      </p>
+    <div className="flex flex-col space-y-8">
+      <h1 className="text-2xl font-bold">Identity Proofing API</h1>
 
-      {/* List of endpoints in this section */}
-      <div className="spce-y-6">
-        <h2 className="text-lg font-semibold">Available Endpoints</h2>
-        <ul className="space-y-4">
-          <li>
-            <Link
-              to="/identity-proofing/start-verification"
-              className="block p-4 border border-gray-200 rounded-md hover:bg-gray-50"
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-md font-medium">Start ID Verification</span>
-                <span className="text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded">POST</span>
+      <div className="flex flex-row space-x-8">
+        {/* Left side: Documentation */}
+        <div className="w-1/2">
+          <p>
+            This section defines the endpoints for the ID.me-based identity proofing flow for the
+            RON (Remote Online Notarization) project. Since MaxMD does not provide API-based
+            initiation for ID.me, this spec outlines the required Redrock-managed endpoints to
+            support initiation, session tracking, and response handling.
+          </p>
+          {/* Additional Documentation Content */}
+        </div>
+
+        {/* Right side: Endpoints in code-style box */}
+        <div className="w-1/2">
+          <div className="bg-gray-900 text-white p-6 rounded-lg">
+            <div className="text-sm text-gray-400 mb-4">ENDPOINTS</div>
+            <div className="font-mono">
+              {/* Endpoints */}
+              <div className="mb-1">
+                <span className="text-blue-400">GET</span> /v1/balance
               </div>
-              <p className="mt-2 text-sm">
-                Initiates identity verification session via ID.me and returns a redirect URL
-              </p>
-            </Link>
-          </li>
-          {/* Add more endpoint links here */}
-        </ul>
+              <div className="mb-1">
+                <span className="text-blue-400">POST</span> /v1/balance
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Child routes will be rendered here */}
@@ -39,5 +43,4 @@ const IdentityProofingPage = () => {
     </div>
   );
 };
-
 export default IdentityProofingPage;
