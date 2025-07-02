@@ -34,6 +34,17 @@ const IdentityProofingPage = () => {
               <li>Maintain abstraction from ID.me implementation details</li>
             </ul>
           </div>
+
+          {/* Assumptions */}
+          <div className="mb-6">
+            <h2 className="text-1xl font-bold mb-2">Assumptions</h2>
+            <ul className="list-disc pl-6 space-y-1">
+              <li>ID.me handles the actual identity proofing through their hosted interface</li>
+              <li>Redirection-based flow is required to initiate session</li>
+              <li>Redrock servers receive session completion webhook or poll for result</li>
+              <li>JWT or session tokens are used for secure linkage of session data</li>
+            </ul>
+          </div>
         </div>
 
         {/* Right side: Endpoints in code-style box */}
