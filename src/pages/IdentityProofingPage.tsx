@@ -10,13 +10,30 @@ const IdentityProofingPage = () => {
       <div className="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-8">
         {/* Left side: Documentation */}
         <div className="w-full md:w-1/2">
-          <p>
-            This section defines the endpoints for the ID.me-based identity proofing flow for the
-            RON (Remote Online Notarization) project. Since MaxMD does not provide API-based
-            initiation for ID.me, this spec outlines the required Redrock-managed endpoints to
-            support initiation, session tracking, and response handling.
-          </p>
-          {/* Additional Documentation Content */}
+          {/* Context */}
+          <div className="mb-6">
+            <h2 className="text-1xl font-bold mb-2">Context</h2>
+            <p className="mb-2">
+              This section defines the endpoints for the ID.me-based identity proofing flow for the
+              RON (Remote Online Notarization) project.
+            </p>
+            <p>
+              Since MaxMD does not provide API-based initiation for ID.me, this spec outlines the
+              required Redrock-managed endpoints to support initiation, session tracking, and
+              response handling.
+            </p>
+          </div>
+
+          {/* Goals */}
+          <div className="mb-6">
+            <h2 className="text-1xl font-bold mb-2">Goals</h2>
+            <ul className="list-disc pl-6 space-y-1">
+              <li>Support initiation of ID.me identity verification sessions</li>
+              <li>Allow polling or webhook-based updates from ID.me</li>
+              <li>Provide verification status and results to frontend applications</li>
+              <li>Maintain abstraction from ID.me implementation details</li>
+            </ul>
+          </div>
         </div>
 
         {/* Right side: Endpoints in code-style box */}
@@ -26,10 +43,16 @@ const IdentityProofingPage = () => {
             <div className="font-mono">
               {/* Endpoints */}
               <div className="mb-1">
-                <span className="text-blue-400">GET</span> /v1/balance
+                <span className="text-yellow-400">POST</span> /identity/start
               </div>
               <div className="mb-1">
-                <span className="text-blue-400">POST</span> /v1/balance
+                <span className="text-yellow-400">POST</span> /identity/webhook
+              </div>
+              <div className="mb-1">
+                <span className="text-green-400">GET</span> /identity/&#123;sessionId&#125;/status
+              </div>
+              <div className="mb-1">
+                <span className="text-green-400">GET</span> /identity/&#123;sessionId&#125;/result
               </div>
             </div>
           </div>
