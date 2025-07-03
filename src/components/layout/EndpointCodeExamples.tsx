@@ -22,7 +22,7 @@ const EndpointCodeExamples: React.FC<EndpointCodeExamplesProps> = ({
   requestLanguage,
   requestExample,
   responseExample,
-  requestTitle = 'Request Example',
+  requestTitle = 'Request Example (Python)',
   responseTitle = 'Response Example',
 }) => {
   return (

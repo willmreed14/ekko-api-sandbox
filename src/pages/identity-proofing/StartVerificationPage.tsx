@@ -28,43 +28,60 @@ print(response.json())`;
   "redirect_url": "https://verify.id.me/verify/abc-123",
   "expires_at": "2025-06-16T19:00:00Z"
   }`;
-  
-  // Define pre-filled values for ID verification API
-  const verificationExample = {
-    url: `${API_BASE_URL}/identity/start`,
-    method: 'POST' as const,
-    headers: [{ key: 'Content-Type', value: 'application/json' }],
-    body: JSON.stringify(
-      {
-        user_id: 'user_1234',
-        provider: 'idme',
-        callbackUrl: 'https://your-app.com/verify/callback',
-        channel: 'web', // optional: helps track mobile vs web flow
-      },
-      null,
-      2
-    ),
-  };
 
   return (
-    <div>
-      {/* Example endpoints section */}
-      <div className="space-y-12">
-        {/* POST Endpoint Example */}
-        <section id="create-verification" className="border-b border-gray-200 pb-8">
-          <h2 className="text-xl font-semibold mb-4">Start ID Verification</h2>
-          <p className="mb-6">
-            Initiates identity verification session via ID.me and returns a redirect URL
-          </p>
+    <div className="flex flex-col space-y-8">
+      <div className="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-8">
+        {/* Left side: Documentation */}
+        <div className="w-full md:w-1/2">
+          {/* Overview Section */}
+          <div className="mb-6">
+            <h2 className="text-xl font-bold mb-2">Start ID Verification</h2>
+            <p className="mb-4">
+              Initiates an identity verification session via ID.me and returns a redirect URL that
+              your application should redirect the user to.
+            </p>
+            <p>
+              After completing the verification flow on ID.me, users will be redirected back to the
+              callback URL you specified. The verification results can be retrieved using the
+              session_id.
+            </p>
+          </div>
 
-          {/* Use PrefilledApiSandbox with example values */}
-          <PrefilledApiSandbox
-            defaultUrl={verificationExample.url}
-            defaultMethod={verificationExample.method}
-            defaultHeaders={verificationExample.headers}
-            defaultBody={verificationExample.body}
-          />
-        </section>
+          {/* Request Parameters */}
+          <div className="mb-6">
+            <h2 className="text-lg font-bold mb-2">Request Parameters</h2>
+            <ul className="list-disc pl-6 space-y-1">
+              <li>
+                <strong>user_id</strong> (required): Your internal user identifier
+              </li>
+              <li>
+                <strong>provider</strong> (required): Identity verification provider to use
+                (currently only "idme" supported)
+              </li>
+              <li>
+                <strong>callbackUrl</strong> (required):URL where user will be redirected after
+                completing verification
+              </li>
+              <li>
+                <strong>channel</strong> (optional):Application channel, either "web" or "mobile"
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Right side: Code Examples */}
+        <div className="w-full md:w-1/2">
+          <div className="bg-gray-900 text-white p-6 rounded-lg">
+            <EndpointCodeExamples
+              httpMethod="POST"
+              endpoint="/identity/start"
+              requestLanguage="python"
+              requestExample={pythonRequestExample}
+              responseExample={responseExample}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
