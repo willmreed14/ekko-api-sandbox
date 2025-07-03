@@ -4,7 +4,7 @@ Combines request and response examples.
 */
 
 import React from 'react';
-import CodeExampleBox from './CodeExamplesBox';
+import CodeExampleBox from './CodeExampleBox';
 
 interface EndpointCodeExamplesProps {
   httpMethod: string; // 'POST', 'GET', etc.
