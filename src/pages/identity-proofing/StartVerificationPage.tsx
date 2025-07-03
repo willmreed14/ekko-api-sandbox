@@ -1,7 +1,8 @@
 /* Start ID Verification endpoint example */
 
 import { API_BASE_URL } from '../../config/env';
-import EndpointCodeExamples from '../../components/layout/EndpointCodeExamples';
+import RequestExample from '../../components/layout/RequestExample';
+import ResponseExample from '../../components/layout/ResponseExample';
 
 const StartVerificationPage = () => {
   // Define pre-filled request example (Python, for now)
@@ -22,7 +23,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.json())`;
 
   // Define example JSON response
-  const responseExample = `{
+  const jsonResponseExample = `{
   "success": true,
   "session_id": "abc-123",
   "redirect_url": "https://verify.id.me/verify/abc-123",
@@ -72,15 +73,17 @@ print(response.json())`;
 
         {/* Right side: Code Examples */}
         <div className="w-full md:w-1/2">
-          <div className="bg-gray-900 text-white p-6 rounded-lg">
-            <EndpointCodeExamples
-              httpMethod="POST"
-              endpoint="/identity/start"
-              requestLanguage="python"
-              requestExample={pythonRequestExample}
-              responseExample={responseExample}
-            />
-          </div>
+          {/* Request Example */}
+          <RequestExample
+            httpMethod="POST"
+            endpoint="/identity/start"
+            language="python"
+            code={pythonRequestExample}
+            title="Request Example (Python)"
+          />
+
+          {/* Response Example */}
+          <ResponseExample code={jsonResponseExample} title="Response" />
         </div>
       </div>
     </div>
