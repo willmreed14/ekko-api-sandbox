@@ -42,10 +42,10 @@ const EndpointCodeExamples: React.FC<EndpointCodeExamplesProps> = ({
         <span className="text-white ml-2">{endpoint}</span>
       </div>
 
-      {/* Request Exanple */}
+      {/* Request Example */}
       <CodeExampleBox language={requestLanguage} title={requestTitle} code={requestExample} />
 
-      {/* Response Exanple */}
+      {/* Response Example */}
       <CodeExampleBox language="json" title={responseTitle} code={responseExample} />
     </div>
   );
