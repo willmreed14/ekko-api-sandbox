@@ -2,8 +2,21 @@
 
 import { Outlet } from 'react-router-dom';
 import StartVerificationPage from './identity-proofing/StartVerificationPage';
+import { useScrollNavigation } from '../hooks/useScrollNavigation';
 
 const IdentityProofingPage = () => {
+  // Define section paths for scroll navigation
+  const sectionPaths = {
+    'start-verification': 'start-verification',
+    // Note: add more sections here later
+  };
+
+  // Use the scroll navigation hook
+  useScrollNavigation({
+    rootPath: '/identity-proofing',
+    sectionPaths,
+  });
+
   return (
     <div className="flex flex-col space-y-8">
       <h1 className="text-2xl font-bold">Identity Proofing API</h1>
