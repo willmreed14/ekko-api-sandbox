@@ -4,8 +4,6 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const Navigation = () => {
-  //const location = useLocation();
-
   // Track which sections are expanded
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
     'identity-proofing': true, // Default expanded (for now)
@@ -43,80 +41,87 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="w-64 bg-gray-900 border-r border-gray-700 p-4">
-      <div className="text-sm font-medium text-gray-400 py-2">API SECTIONS</div>
-      <ul className="space-y-1 py-2">
-        {sections.map((section) => (
-          <li key={section.id} className="mb-2">
-            <div className="flex flex-col">
-              {/* Section header with expandable arrow */}
-              <div className="flex items-center">
-                {section.endpoints && section.endpoints.length > 0 ? (
-                  <button
-                    onClick={() => toggleSection(section.id)}
-                    className="w-5 h-5 mr-1 flex items-center justify-center text-gray-400 hover:text-gray-300"
-                  >
-                    <svg
-                      className={`w-3 h-3 transition-transform ${
-                        expandedSections[section.id] ? 'transform rotate-90' : ''
-                      }`}
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
+    <nav className="w-64 bg-gray-900 border-r border-gray-700 flex flex-col h-full">
+      {/* Fixed navigation header */}
+      <div className="p-4 border-b border-gray-700">
+        <div className="text-sm font-medium text-gray-400">API SECTIONS</div>
+      </div>
+
+      {/* Scrollable navigation content */}
+      <div className="overflow-y-auto p-4">
+        <ul className="space-y-1">
+          {sections.map((section) => (
+            <li key={section.id} className="mb-2">
+              <div className="flex flex-col">
+                {/* Section header with expandable arrow */}
+                <div className="flex items-center">
+                  {section.endpoints && section.endpoints.length > 0 ? (
+                    <button
+                      onClick={() => toggleSection(section.id)}
+                      className="w-5 h-5 mr-1 flex items-center justify-center text-gray-400 hover:text-gray-300"
                     >
-                      <path
-                        fillRule="evenodd"
-                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </button>
-                ) : (
-                  <div className="w-5 h-5 mr-1"></div>
-                )}
+                      <svg
+                        className={`w-3 h-3 transition-transform ${
+                          expandedSections[section.id] ? 'transform rotate-90' : ''
+                        }`}
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                  ) : (
+                    <div className="w-5 h-5 mr-1"></div>
+                  )}
 
-                {/* Section link */}
-                <NavLink
-                  to={section.path}
-                  end={section.endpoints && section.endpoints.length > 0}
-                  className={({ isActive }) =>
-                    `flex-grow px-3 py-2 rounded-md text-sm ${
-                      isActive
-                        ? 'bg-gray-800 text-white font-medium border-l-2 border-blue-500'
-                        : 'text-gray-300 hover:bg-gray-800 hover:text-white'
-                    }`
-                  }
-                >
-                  {section.name}
-                </NavLink>
+                  {/* Section link */}
+                  <NavLink
+                    to={section.path}
+                    end={section.endpoints && section.endpoints.length > 0}
+                    className={({ isActive }) =>
+                      `flex-grow px-3 py-2 rounded-md text-sm ${
+                        isActive
+                          ? 'bg-gray-800 text-white font-medium border-l-2 border-blue-500'
+                          : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+                      }`
+                    }
+                  >
+                    {section.name}
+                  </NavLink>
+                </div>
+
+                {/* Endpoints submenu */}
+                {section.endpoints &&
+                  section.endpoints.length > 0 &&
+                  expandedSections[section.id] && (
+                    <ul className="pl-6 mt-1 space-y-1">
+                      {section.endpoints.map((endpoint) => (
+                        <li key={endpoint.id}>
+                          <NavLink
+                            to={endpoint.path}
+                            className={({ isActive }) =>
+                              `block px-3 py-2 rounded-md text-xs ${
+                                isActive
+                                  ? 'bg-gray-800 text-white font-medium border-l-2 border-blue-500'
+                                  : 'text-gray-400 hover:bg-gray-800 hover:text-gray-300'
+                              }`
+                            }
+                          >
+                            {endpoint.name}
+                          </NavLink>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
               </div>
-
-              {/* Endpoints submenu */}
-              {section.endpoints &&
-                section.endpoints.length > 0 &&
-                expandedSections[section.id] && (
-                  <ul className="pl-6 mt-1 space-y-1">
-                    {section.endpoints.map((endpoint) => (
-                      <li key={endpoint.id}>
-                        <NavLink
-                          to={endpoint.path}
-                          className={({ isActive }) =>
-                            `block px-3 py-2 rounded-md text-xs ${
-                              isActive
-                                ? 'bg-gray-800 text-white font-medium border-l-2 border-blue-500'
-                                : 'text-gray-400 hover:bg-gray-800 hover:text-gray-300'
-                            }`
-                          }
-                        >
-                          {endpoint.name}
-                        </NavLink>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-            </div>
-          </li>
-        ))}
-      </ul>
+            </li>
+          ))}
+        </ul>
+      </div>
     </nav>
   );
 };
