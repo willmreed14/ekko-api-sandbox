@@ -1,10 +1,10 @@
 /* Navigation Component */
 
 import { useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Navigation = () => {
-  const location = useLocation();
+  //const location = useLocation();
 
   // Track which sections are expanded
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
