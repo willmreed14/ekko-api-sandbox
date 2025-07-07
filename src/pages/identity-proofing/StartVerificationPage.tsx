@@ -28,7 +28,7 @@ print(response.json())`;
   "session_id": "abc-123",
   "redirect_url": "https://verify.id.me/verify/abc-123",
   "expires_at": "2025-06-16T19:00:00Z"
-  }`;
+}`;
 
   return (
     <div id="start-verification" className="flex flex-col space-y-8">
