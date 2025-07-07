@@ -13,6 +13,9 @@ interface UseScrollNavigationOptions {
   // Optional threshold to determine when a section is considered "in view"
   // Default is 0.5 (50% of the section visible)
   threshold?: number;
+  // Optional ID of parent section to observe for resetting URL
+  // When this section is in view, URL will revert to rootPath
+  parentSectionId?: string;
 }
 
 /**
@@ -24,6 +27,7 @@ export function useScrollNavigation({
   rootPath,
   sectionPaths,
   threshold = 0.5,
+  parentSectionId = 'identity-proofing-main', // Default to the parent section ID we've added
 }: UseScrollNavigationOptions) {
   const location = useLocation();
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -42,6 +46,8 @@ export function useScrollNavigation({
         entries.forEach((entry) => {
           if (entry.isIntersecting && entry.intersectionRatio >= threshold) {
             const sectionId = entry.target.id;
+
+            // Check if this is a subsection with a defined path
             if (sectionPaths[sectionId]) {
               const newPath = `${rootPath}/${sectionPaths[sectionId]}`;
 
@@ -51,8 +57,9 @@ export function useScrollNavigation({
                 // Update URL without causing a re-render
                 window.history.replaceState(null, '', newPath);
               }
-            } else if (lastPathRef.current !== rootPath) {
-              // If section has no specific path, use root path
+            }
+            // Check if this is the parent section - reset URL to root path
+            else if (sectionId === parentSectionId && lastPathRef.current !== rootPath) {
               lastPathRef.current = rootPath;
               window.history.replaceState(null, '', rootPath);
             }
@@ -70,11 +77,17 @@ export function useScrollNavigation({
       }
     });
 
+    // Also observe the parent section
+    const parentElement = document.getElementById(parentSectionId);
+    if (parentElement) {
+      observerRef.current?.observe(parentElement);
+    }
+
     // Clean up observer on unmount
     return () => {
       observerRef.current?.disconnect();
     };
-  }, [rootPath, sectionPaths, threshold]);
+  }, [rootPath, sectionPaths, threshold, parentSectionId]);
 
   // Handle initial scrolling to the right section on load
   useEffect(() => {
