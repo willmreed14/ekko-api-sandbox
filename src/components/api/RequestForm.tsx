@@ -8,6 +8,10 @@ import { type ApiRequestConfig } from '../../services/apiService';
 interface RequestFormProps {
   onSubmit: (config: ApiRequestConfig) => Promise<void>;
   isLoading: boolean;
+  defaultUrl?: string;
+  defaultMethod?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+  defaultHeaders?: { key: string; value: string }[];
+  defaultBody?: string;
 }
 
 // Define the form data structure
@@ -19,17 +23,24 @@ interface FormData {
 }
 
 // Create the form component
-const RequestForm: FC<RequestFormProps> = ({ onSubmit, isLoading }) => {
+const RequestForm: FC<RequestFormProps> = ({
+  onSubmit,
+  isLoading,
+  defaultUrl = '',
+  defaultMethod = 'GET',
+  defaultHeaders = [{ key: '', value: '' }],
+  defaultBody = '',
+}) => {
   // State for JSON validation error
   const [jsonError, setJsonError] = useState<string | null>(null);
 
   // Create the form itself
   const { control, register, handleSubmit, watch, setValue } = useForm<FormData>({
     defaultValues: {
-      url: '',
-      method: 'GET',
-      headers: [{ key: '', value: '' }],
-      body: '',
+      url: defaultUrl,
+      method: defaultMethod,
+      headers: defaultHeaders,
+      body: defaultBody,
     },
   });
 

@@ -125,14 +125,14 @@ ekko-api-sandbox/
 
 - [x] Define tech stack
   - [x] Choose a lightweight tech stack (React + TypeScript + Axios)
-- [ ] App Structure
-  - [ ] Create the folder structure for
-    - [ ] Individual API endpoints (Identity proofing, digital signature, etc.)
+- [x] App Structure
+  - [x] Create the folder structure for
+    - [x] Individual API endpoints (Identity proofing, digital signature, etc.)
     - [x] Shared layout / components
-    - [ ] Config (.env) file to point to environment base URLs
-- [ ] Setup Routing + Layout
-  - [ ] Simple routing or tabbed UI for switching between API test views
-    - [ ] Left nav or tab bar for different APIs
+    - [x] Config (.env) file to point to environment base URLs
+- [x] Setup Routing + Layout
+  - [x] Simple routing or tabbed UI for switching between API test views
+    - [x] Left nav or tab bar for different APIs
     - [x] Main panel for each API's request/response playground
     - Note: reference Stripe API docs
 - [x] Build Generic API Tester Component
