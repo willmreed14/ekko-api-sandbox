@@ -11,7 +11,6 @@ import App from './App.tsx';
 // Import page componenets
 import SandboxPage from './pages/SandboxPage.tsx';
 import IdentityProofingPage from './pages/IdentityProofingPage.tsx';
-import StartVerificationPage from './pages/identity-proofing/StartVerificationPage.tsx';
 
 // Create a QueryClient instance
 const queryClient = new QueryClient();
@@ -37,10 +36,13 @@ const router = createBrowserRouter([
       {
         path: 'identity-proofing',
         element: <IdentityProofingPage />,
+        // Define child routes to support direct linking
+        // Content itself is embedded in IdentityProofingPage
         children: [
           {
             path: 'start-verification',
-            element: <StartVerificationPage />,
+            // No element needed anymore, handled by IdentityProofingPage
+            // the useScrollNavigation hooks will scroll to the correct section
           },
         ],
       },
