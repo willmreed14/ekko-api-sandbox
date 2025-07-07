@@ -43,8 +43,8 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="w-64 bg-gray-50 border-r border-gray-200 p-4">
-      <div className="text-sm font-medium text-gray-500 py-2">API SECTIONS</div>
+    <nav className="w-64 bg-gray-900 border-r border-gray-700 p-4">
+      <div className="text-sm font-medium text-gray-400 py-2">API SECTIONS</div>
       <ul className="space-y-1 py-2">
         {sections.map((section) => (
           <li key={section.id} className="mb-2">
@@ -54,13 +54,13 @@ const Navigation = () => {
                 {section.endpoints && section.endpoints.length > 0 ? (
                   <button
                     onClick={() => toggleSection(section.id)}
-                    className="w-5 h-5 mr-1 flex items-center justify-center"
+                    className="w-5 h-5 mr-1 flex items-center justify-center text-gray-400 hover:text-gray-300"
                   >
                     <svg
                       className={`w-3 h-3 transition-transform ${
                         expandedSections[section.id] ? 'transform rotate-90' : ''
                       }`}
-                      fill="gray-600"
+                      fill="currentColor"
                       viewBox="0 0 20 20"
                     >
                       <path
@@ -81,8 +81,8 @@ const Navigation = () => {
                   className={({ isActive }) =>
                     `flex-grow px-3 py-2 rounded-md text-sm ${
                       isActive
-                        ? 'bg-gray-100 text-gray-900 font-medium'
-                        : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                        ? 'bg-gray-800 text-white font-medium border-l-2 border-blue-500'
+                        : 'text-gray-300 hover:bg-gray-800 hover:text-white'
                     }`
                   }
                 >
@@ -102,8 +102,8 @@ const Navigation = () => {
                           className={({ isActive }) =>
                             `block px-3 py-2 rounded-md text-xs ${
                               isActive
-                                ? 'bg-gray-100 text-gray-900 font-medium'
-                                : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                                ? 'bg-gray-800 text-white font-medium border-l-2 border-blue-500'
+                                : 'text-gray-400 hover:bg-gray-800 hover:text-gray-300'
                             }`
                           }
                         >
