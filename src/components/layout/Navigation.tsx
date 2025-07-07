@@ -34,6 +34,11 @@ const Navigation = () => {
           name: 'Start ID Verification',
           path: '/identity-proofing/start-verification',
         },
+        {
+          id: 'check-session-status',
+          name: 'Check Session Status',
+          path: '/identity-proofing/check-session-status',
+        },
         // Note: Add more endpoints as needed
       ],
     },

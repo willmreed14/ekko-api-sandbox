@@ -43,6 +43,10 @@ const router = createBrowserRouter([
             path: 'start-verification',
             element: <></>,
           },
+          {
+            path: 'check-session-status',
+            element: <></>,
+          },
         ],
       },
     ],

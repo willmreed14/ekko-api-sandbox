@@ -1,13 +1,14 @@
 /* Identity Proofing API section */
 
-import { Outlet } from 'react-router-dom';
-import StartVerificationPage from './identity-proofing/StartVerificationPage';
 import { useScrollNavigation } from '../hooks/useScrollNavigation';
+import CheckSessionStatusPage from './identity-proofing/CheckSessionStatusPage';
+import StartVerificationPage from './identity-proofing/StartVerificationPage';
 
 const IdentityProofingPage = () => {
   // Define section paths for scroll navigation
   const sectionPaths = {
     'start-verification': 'start-verification',
+    'check-session-status': 'check-session-status',
     // Note: add more sections here later
   };
 
@@ -90,6 +91,7 @@ const IdentityProofingPage = () => {
       {/* Child routes will be rendered here */}
       <div className="mt-10">
         <StartVerificationPage />
+        <CheckSessionStatusPage />
       </div>
     </div>
   );
