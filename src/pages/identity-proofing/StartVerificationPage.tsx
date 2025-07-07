@@ -1,4 +1,4 @@
-/* Start ID Verification endpoint example */
+/* Start ID Verification Documentation */
 
 import { API_BASE_URL } from '../../config/env';
 import RequestExample from '../../components/layout/RequestExample';
