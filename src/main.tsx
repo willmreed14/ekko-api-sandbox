@@ -41,8 +41,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'start-verification',
-            // No element needed anymore, handled by IdentityProofingPage
-            // the useScrollNavigation hooks will scroll to the correct section
+            element: <></>,
           },
         ],
       },
