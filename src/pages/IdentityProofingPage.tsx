@@ -1,6 +1,7 @@
 /* Identity Proofing API section */
 
 import { Outlet } from 'react-router-dom';
+import StartVerificationPage from './identity-proofing/StartVerificationPage';
 
 const IdentityProofingPage = () => {
   return (
@@ -72,7 +73,7 @@ const IdentityProofingPage = () => {
 
       {/* Child routes will be rendered here */}
       <div className="mt-10">
-        <Outlet />
+        <StartVerificationPage />
       </div>
     </div>
   );
