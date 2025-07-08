@@ -1,7 +1,7 @@
 /* Navigation Component */
 
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 const Navigation = () => {
   // Track which sections are expanded
@@ -47,13 +47,20 @@ const Navigation = () => {
 
   return (
     <nav className="w-64 bg-gray-900 border-r border-gray-700 flex flex-col h-full">
-      {/* Fixed navigation header */}
-      <div className="p-4 border-b border-gray-700">
+      {/* Brand Logo/Name at the top */}
+      <div className="p-4">
+        <Link to="/" className="flex items-center">
+          <span className="text-lg font-bold text-white">Ekko API</span>
+        </Link>
+      </div>
+
+      {/* API Sections header */}
+      <div className="p-4">
         <div className="text-sm font-medium text-gray-400">API SECTIONS</div>
       </div>
 
       {/* Scrollable navigation content */}
-      <div className="overflow-y-auto p-4">
+      <div className="overflow-y-auto flex-1 p-4 pt-0">
         <ul className="space-y-1">
           {sections.map((section) => (
             <li key={section.id} className="mb-2">
