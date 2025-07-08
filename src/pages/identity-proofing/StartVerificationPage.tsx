@@ -31,7 +31,10 @@ print(response.json())`;
 }`;
 
   return (
-    <div id="start-verification" className="flex flex-col space-y-8 mb-10">
+    <div
+      id="start-verification"
+      className="flex flex-col space-y-8 mb-10 pt-8 border-t border-solid border-gray-700"
+    >
       <div className="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-8">
         {/* Left side: Documentation */}
         <div className="w-full md:w-1/2">
