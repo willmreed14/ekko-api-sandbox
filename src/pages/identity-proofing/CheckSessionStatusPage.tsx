@@ -38,18 +38,20 @@ print(response.json())`;
         </div>
 
         {/* Right side: Code Examples */}
-        <div className="w-full md:w-1/2">
-          {/* Request Example */}
-          <RequestExample
-            httpMethod="GET"
-            endpoint="/identity/{session_id}/status"
-            language="python"
-            code={pythonRequestExample}
-            title="Request Example (Python)"
-          />
+        <div className="w-full md:w-1/2 md:flex md:flex-col md:items-end">
+          <div className="w-[500px]">
+            {/* Request Example */}
+            <RequestExample
+              httpMethod="GET"
+              endpoint="/identity/{session_id}/status"
+              language="python"
+              code={pythonRequestExample}
+              title="Request Example (Python)"
+            />
 
-          {/* Response Example */}
-          <ResponseExample code={jsonResponseExample} title="Response" />
+            {/* Response Example */}
+            <ResponseExample code={jsonResponseExample} title="Response" />
+          </div>
         </div>
       </div>
     </div>
