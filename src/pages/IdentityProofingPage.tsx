@@ -65,22 +65,26 @@ const IdentityProofingPage = () => {
           </div>
 
           {/* Right side: Endpoints in code-style box */}
-          <div className="w-full md:w-1/2">
-            <div className="bg-gray-900 text-white p-6 rounded-lg">
-              <div className="text-sm text-gray-400 mb-4">ENDPOINTS</div>
-              <div className="font-mono">
-                {/* Endpoints */}
-                <div className="mb-1">
-                  <span className="text-yellow-400">POST</span> /identity/start
-                </div>
-                <div className="mb-1">
-                  <span className="text-yellow-400">POST</span> /identity/webhook
-                </div>
-                <div className="mb-1">
-                  <span className="text-green-400">GET</span> /identity/&#123;sessionId&#125;/status
-                </div>
-                <div className="mb-1">
-                  <span className="text-green-400">GET</span> /identity/&#123;sessionId&#125;/result
+          <div className="w-full md:w-1/2 md:flex md:flex-col md:items-end">
+            <div className="w-[500px]">
+              <div className="bg-gray-900 text-white p-6 rounded-lg">
+                <div className="text-sm text-gray-400 mb-4">ENDPOINTS</div>
+                <div className="font-mono">
+                  {/* Endpoints */}
+                  <div className="mb-1">
+                    <span className="text-yellow-400">POST</span> /identity/start
+                  </div>
+                  <div className="mb-1">
+                    <span className="text-yellow-400">POST</span> /identity/webhook
+                  </div>
+                  <div className="mb-1">
+                    <span className="text-green-400">GET</span>{' '}
+                    /identity/&#123;sessionId&#125;/status
+                  </div>
+                  <div className="mb-1">
+                    <span className="text-green-400">GET</span>{' '}
+                    /identity/&#123;sessionId&#125;/result
+                  </div>
                 </div>
               </div>
             </div>
