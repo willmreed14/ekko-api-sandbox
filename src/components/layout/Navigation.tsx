@@ -1,9 +1,13 @@
 /* Navigation Component */
 
-import { useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useCurrentPath } from '../../hooks/useCurrentPath';
 
 const Navigation = () => {
+  // Get current path from custom hook that tracks URL changes
+  const currentPath = useCurrentPath();
+
   // Track which sections are expanded
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
     'identity-proofing': true, // Default expanded (for now)
@@ -15,6 +19,29 @@ const Navigation = () => {
       ...prev,
       [sectionId]: !prev[sectionId],
     }));
+  };
+
+  // Check if a path is active
+  const isPathActive = (path: string): boolean => {
+    // Exact match for root path
+    if (path === '/' && currentPath === '/') {
+      return true;
+    }
+
+    // For other paths, check if current path starts w/ this path,
+    // but only mark parent paths active when they match exact
+    if (path != '/') {
+      if (currentPath === path) {
+        return true;
+      }
+
+      // For endpoint paths (deeper nesting) do an exact match
+      if (path.split('/').length > 2) {
+        return currentPath == path;
+      }
+    }
+
+    return false;
   };
 
   // Define API sections with nested endpoints
@@ -44,6 +71,19 @@ const Navigation = () => {
     },
     // Note: Add more sections as needed
   ];
+
+  // Automatically expand sections based on current path
+  useEffect(() => {
+    // Find which section should be expanded based on the current path
+    sections.forEach((section) => {
+      if (section.endpoints && currentPath.startsWith(section.path) && section.path !== '/') {
+        setExpandedSections((prev) => ({
+          ...prev,
+          [section.id]: true,
+        }));
+      }
+    });
+  }, [currentPath]);
 
   return (
     <nav className="w-64 bg-gray-900 border-r border-gray-700 flex flex-col h-full">
@@ -91,19 +131,16 @@ const Navigation = () => {
                   )}
 
                   {/* Section link */}
-                  <NavLink
+                  <Link
                     to={section.path}
-                    end={section.endpoints && section.endpoints.length > 0}
-                    className={({ isActive }) =>
-                      `flex-grow px-3 py-2 rounded-md text-sm ${
-                        isActive
-                          ? 'bg-gray-800 text-white font-medium border-l-2 border-blue-500'
-                          : 'text-gray-300 hover:bg-gray-800 hover:text-white'
-                      }`
-                    }
+                    className={`flex-grow px-3 py-2 rounded-md text-sm ${
+                      isPathActive(section.path)
+                        ? 'bg-gray-800 text-white font-medium border-l-2 border-blue-500'
+                        : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+                    }`}
                   >
                     {section.name}
-                  </NavLink>
+                  </Link>
                 </div>
 
                 {/* Endpoints submenu */}
@@ -113,18 +150,16 @@ const Navigation = () => {
                     <ul className="pl-6 mt-1 space-y-1">
                       {section.endpoints.map((endpoint) => (
                         <li key={endpoint.id}>
-                          <NavLink
+                          <Link
                             to={endpoint.path}
-                            className={({ isActive }) =>
-                              `block px-3 py-2 rounded-md text-xs ${
-                                isActive
-                                  ? 'bg-gray-800 text-white font-medium border-l-2 border-blue-500'
-                                  : 'text-gray-400 hover:bg-gray-800 hover:text-gray-300'
-                              }`
-                            }
+                            className={`block px-3 py-2 rounded-md text-xs ${
+                              isPathActive(endpoint.path)
+                                ? 'bg-gray-800 text-white font-medium border-l-2 border-blue-500'
+                                : 'text-gray-400 hover:bg-gray-800 hover:text-gray-300'
+                            }`}
                           >
                             {endpoint.name}
-                          </NavLink>
+                          </Link>
                         </li>
                       ))}
                     </ul>
