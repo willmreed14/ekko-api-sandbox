@@ -30,14 +30,14 @@ const Navigation = () => {
 
     // For other paths, check if current path starts w/ this path,
     // but only mark parent paths active when they match exact
-    if (path != '/') {
+    if (path !== '/') {
       if (currentPath === path) {
         return true;
       }
 
       // For endpoint paths (deeper nesting) do an exact match
       if (path.split('/').length > 2) {
-        return currentPath == path;
+        return currentPath === path;
       }
     }
 
