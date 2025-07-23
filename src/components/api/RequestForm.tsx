@@ -34,6 +34,9 @@ const RequestForm: FC<RequestFormProps> = ({
   // State for JSON validation error
   const [jsonError, setJsonError] = useState<string | null>(null);
 
+  // State for body format
+  const [bodyFormat, setBodyFormat] = useState<'json' | 'xml'>('json');
+
   // Create the form itself
   const { control, register, handleSubmit, watch, setValue } = useForm<FormData>({
     defaultValues: {
@@ -185,8 +188,34 @@ const RequestForm: FC<RequestFormProps> = ({
       {showBody && (
         <div>
           <label htmlFor="body" className="block text-sm font-medium text-white mb-1">
-            Request Body (JSON)
+            Request Body
           </label>
+          <div className="flex space-x-4 mb-2">
+            <label className="inline-flex items-center">
+              <input
+                type="radio"
+                name="bodyFormat"
+                value="json"
+                checked={bodyFormat === 'json'}
+                onChange={() => setBodyFormat('json')}
+                className="text-blue-600"
+                disabled={isLoading}
+              />
+              <span className="ml-2 text-white">JSON</span>
+            </label>
+            <label className="inline-flex items-center">
+              <input
+                type="radio"
+                name="bodyFormat"
+                value="xml"
+                checked={bodyFormat === 'xml'}
+                onChange={() => setBodyFormat('xml')}
+                className="text-blue-600"
+                disabled={isLoading}
+              />
+              <span className="ml-2 text-white">XML</span>
+            </label>
+          </div>
           <textarea
             id="body"
             {...register('body')}
