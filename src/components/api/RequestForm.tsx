@@ -32,7 +32,7 @@ const RequestForm: FC<RequestFormProps> = ({
   defaultBody = '',
 }) => {
   // State for JSON validation error
-  const [jsonError, setJsonError] = useState<string | null>(null);
+  const [bodyError, setBodyError] = useState<string | null>(null);
 
   // State for body format
   const [bodyFormat, setBodyFormat] = useState<'json' | 'xml'>('json');
@@ -68,7 +68,7 @@ const RequestForm: FC<RequestFormProps> = ({
     });
 
     // Clear any previous errors
-    setJsonError(null);
+    setBodyError(null);
 
     // Create the API request config
     const requestConfig: ApiRequestConfig = {
@@ -78,25 +78,47 @@ const RequestForm: FC<RequestFormProps> = ({
       body: undefined, // default to undefined
     };
 
-    // Handle JSON body for methods that support it
+    // Handle body for necessary methods
     if (showBody && data.body) {
-      try {
-        // Try to parse the JSON
-        const parsedBody = JSON.parse(data.body);
+      // Validate JSON
+      if (bodyFormat === 'json') {
+        try {
+          // Try to parse the JSON
+          const parsedBody = JSON.parse(data.body);
 
-        // Format the JSON with proper indentation
-        const formattedJson = JSON.stringify(parsedBody, null, 2);
+          // Format the JSON with proper indentation
+          const formattedJson = JSON.stringify(parsedBody, null, 2);
 
-        // Update the form field with formatted JSON
-        setValue('body', formattedJson);
+          // Update the form field with formatted JSON
+          setValue('body', formattedJson);
 
-        // Set the body in the request config
-        requestConfig.body = parsedBody;
-      } catch (error) {
-        // Show error inline
-        setJsonError('Invalid JSON in request body. Please check your syntax.');
-        console.error('JSON parse error:', error);
-        return;
+          // Set the body in the request config
+          requestConfig.body = parsedBody;
+        } catch (error) {
+          // Show error inline
+          setBodyError('Invalid JSON in request body. Please check your syntax.');
+          console.error('JSON parse error:', error);
+          return;
+        }
+      } else if (bodyFormat === 'xml') {
+        // For XML, we'll just pass it as a string (for now)
+        // TODO: Add basic XML validation here as necessary
+
+        // Basic check to verify it starts w/ < and ends w/ >
+        if (!(data.body.trim().startsWith('<') && data.body.trim().endsWith('>'))) {
+          setBodyError('Invalid XML in request body. Please check your syntax.');
+          return;
+        }
+
+        // Set the body as a string in the request config
+        requestConfig.body = data.body;
+
+        // Add XML content type header if not already set
+        if (!headers['Content-Type']) {
+          headers['Content-Type'] = 'application/xml';
+          // Update the requestConfig headers too
+          requestConfig.headers = headers;
+        }
       }
     }
 
@@ -228,7 +250,7 @@ const RequestForm: FC<RequestFormProps> = ({
             disabled={isLoading}
           ></textarea>
           {/* Display error w/ body syntax */}
-          {jsonError && <p className="text-red-400 text-sm mt-1">{jsonError}</p>}
+          {bodyError && <p className="text-red-400 text-sm mt-1">{bodyError}</p>}
         </div>
       )}
 
