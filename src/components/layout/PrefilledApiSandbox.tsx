@@ -3,7 +3,6 @@ Pre-filled API Sandbox Layout Component
 A variant of ApiSandboxLayout that accepts pre-filled values
 */
 
-import React from 'react';
 import { type FC } from 'react';
 import RequestForm from '../api/RequestForm';
 import ResponseViewer from '../api/ResponseViewer';
