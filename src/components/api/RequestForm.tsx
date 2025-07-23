@@ -220,7 +220,11 @@ const RequestForm: FC<RequestFormProps> = ({
             id="body"
             {...register('body')}
             className="w-full bg-slate-700 border border-slate-600 rounded p-2 text-white text-sm font-mono h-32"
-            placeholder='{\n "key": "value"\n}'
+            placeholder={
+              bodyFormat === 'json'
+                ? '{\n "key": "value\n}'
+                : '<?xml version="1.0 encoding="UTF-8"?>\n<root>\n <element>value</element>\n</root>'
+            }
             disabled={isLoading}
           ></textarea>
           {/* Display error w/ body syntax */}
