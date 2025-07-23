@@ -94,6 +94,13 @@ const RequestForm: FC<RequestFormProps> = ({
 
           // Set the body in the request config
           requestConfig.body = parsedBody;
+
+          // Add JSON content type header if not already set
+          if (!headers['Content-Type']) {
+            headers['Content-Type'] = 'application/json';
+            // Update the requestConfig headers too
+            requestConfig.headers = headers;
+          }
         } catch (error) {
           // Show error inline
           setBodyError('Invalid JSON in request body. Please check your syntax.');
